@@ -1,0 +1,55 @@
+```uml
+@startuml
+          entity "users"  {
+        + user_id   [PK]
+        --
+        email
+        user_name
+        password
+        icon
+        create_date
+        last_login
+    }
+
+
+    entity "follows"  {
+        + follow_id   [PK]
+        --
+        # user_id[FK]
+        to_user_id
+        create_date
+    }
+
+    entity "posts"  {
+        + post_id [PK]
+        --
+        # user_id [FK]
+        description
+        img
+        post_date
+    }
+
+    entity "favorites"  {
+        + favorit_id   [PK]
+        --
+        # post_id [FK]
+        # user_id [FK]
+        create_date
+    }
+
+    entity "comments"  {
+        + comment_id   [PK]
+        --
+        # post_id [FK]
+        # user_id [FK]
+        create_date
+    }
+
+
+users ||---o{ follows
+users ||---o{ posts
+users }|--o{ favorites
+posts ||---o{ comments
+
+@enduml
+```
