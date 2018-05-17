@@ -15,4 +15,10 @@ def login(request):
     return render(request, template, {
         'form': form,
     })
-
+ 
+def profile(request, user_name):
+    return render(
+               request, 
+               'ginstagram/profile.html', 
+               {'userInfo': user_name} 
+            )
