@@ -19,8 +19,6 @@ def login(request):
 
 def profile(request, user_name):
     userInfo = get_object_or_404(Users, username=user_name)
-    return render(
-               request,
-               'ginstagram/profile.html',
-               {'userInfo': userInfo}
-            )
+    return render(request,'ginstagram/profile.html',{
+        'userInfo': userInfo
+    })
