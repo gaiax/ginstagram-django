@@ -3,17 +3,38 @@
 {% block content %}
 <div class="container">
 
+  <!-- アカウント情報 -->
   <div class="row">
     <div class="col-md-2 col-md-offset-1">
-      <img src="image.jpg" class="img-responsive">
+      <img src="{{userInfo.icon}}" class="ginstagram-icon img-responsive ">
 
     </div>
-    <div class="col-md-5">
-      <h2>
-        {{userInfo.username}}
-      </h2>
+    <div class="col-md-9">
+      <div class="col-md-12">
+        <h2>
+          {{userInfo.username}}
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-md-offset-1 col-md-3">
+          <p class="userinfo-follow">
+            フォロー</br>
+            <!-- ここにフォロ-　数 -->
+          </p>
+        </div>
+        <div class="col-md-3">
+          <p class="userinfo-follow">
+            フォロワー</br>
+            <!-- ここフォロワー数 -->
+          </p>
+        </div>
     </div>
+
   </div>
+
+  <!--　以下に投稿写真を表示する  -->
+  <div></div>
+
 </div>
 
 {%endblock%}
