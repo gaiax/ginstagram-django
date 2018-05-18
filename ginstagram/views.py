@@ -8,16 +8,8 @@ from .models import Users
 def main(request):
     return HttpResponse("Hello!")
 
-def login(request):
-    template = loader.get_template('ginstagram/login.html')
-    context = {}
-    form = ContactForm()
-
-    return render(request, template, {
-        'form': form,
-    })
-
 def profile(request, user_name):
+    """ ユーザー詳細画面がユーザー名前ごとに生成"""
     userInfo = get_object_or_404(Users, username=user_name)
     return render(request,'ginstagram/profile.html',{
         'userInfo': userInfo

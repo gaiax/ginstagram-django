@@ -5,4 +5,5 @@ from django.contrib.auth.models import PermissionsMixin
 
 
 class Users(AbstractUser):
+    """ 既存のユーザーモデルにアイコン情報を追加"""
     icon = models.ImageField(upload_to="image/", blank=True, null=True)
