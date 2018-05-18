@@ -124,3 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 AUTH_USER_MODEL='ginstagram.Users'
+
+BASE_DIR=os.path.expanduser('~')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

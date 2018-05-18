@@ -5,5 +5,4 @@ from django.contrib.auth.models import PermissionsMixin
 
 
 class Users(AbstractUser):
-        icon = models.CharField(_('user icon image'), max_length=128,null=True,  blank=True)
-
+    icon = models.ImageField(upload_to="image/", blank=True, null=True)
