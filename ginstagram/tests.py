@@ -46,4 +46,4 @@ class ユーザー作成機能(TestCase):
         response = self.client.get(
             reverse('ginstagram:registration')
         )
-        self.assertContains(response, '<button type="submit">登録</button>')
+        self.assertContains(response, '<button type="submit"')
