@@ -127,6 +127,5 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL='ginstagram.Users'
 
 #ユーザー側が投稿したデータを管理
-BASE_DIR=os.path.expanduser('~')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(os.path.expanduser('~'), 'media')
 MEDIA_URL = '/media/'
