@@ -9,11 +9,12 @@ pymysql = "*"
 pillow = "*"
 
 [dev-packages]
+"flake8" = "*"
 
 [requires]
 python_version = "3.6"
 
 [scripts]
-version = "python --version"
 start = "python manage.py runserver 0:8000"
 test = "python manage.py test ginstagram"
+flake8 = "flake8 ."
