@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==2.0"
+pymysql = "*"
+pillow = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
+
+[scripts]
+version = "python --version"
+start = "python manage.py runserver 0:8000"
+test = "python manage.py test ginstagram"
