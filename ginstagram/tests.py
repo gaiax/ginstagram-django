@@ -23,3 +23,9 @@ class ユーザー作成機能(TestCase):
             reverse('ginstagram:registration')
         )
         self.assertEqual(response.status_code, 200) 
+
+    def test_ユーザー登録formを表示する(self):
+        response = self.client.get(
+            reverse('ginstagram:registration')
+        )
+        self.assertContains(response, '<form')

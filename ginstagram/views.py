@@ -16,4 +16,4 @@ def profile(request, user_name):
     })
 
 def registration(request):
-    return HttpResponse("Hello!")
+    return render(request, 'ginstagram/registration.html')
