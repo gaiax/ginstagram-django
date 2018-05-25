@@ -18,6 +18,6 @@ class 既存の動き(TestCase):
 
     def test_ユーザー詳細ページのレスポンスにusernameが含まれている(self):
         user = Users.objects.create(username='TEST_USER_NAME', icon='image/image.jpg')
-        response = self.client.get(reverse('profile', args=[user.username]))
+        response = self.client.get(reverse('ginstagram:profile', args=[user.username]))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, user.username)
