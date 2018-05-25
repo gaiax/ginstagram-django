@@ -29,3 +29,15 @@ class ユーザー作成機能(TestCase):
             reverse('ginstagram:registration')
         )
         self.assertContains(response, '<form')
+
+    def test_ユーザー登録でusernameの入力フォームを表示する(self):
+        response = self.client.get(
+            reverse('ginstagram:registration')
+        )
+        self.assertContains(response, '<input type="text" name="username"')
+
+    def test_ユーザー登録でpasswordの入力フォームを表示する(self):
+        response = self.client.get(
+            reverse('ginstagram:registration')
+        )
+        self.assertContains(response, '<input type="password" name="password"')
