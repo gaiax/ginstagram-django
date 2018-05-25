@@ -12,4 +12,6 @@ class UrlResolveTests(TestCase):
         response = main(request)
         expected_html = 'Hello!'
         self.assertEqual(response.content.decode(), expected_html)
+    def test_absolute_fail(self):
+        self.fail("必ず落ちます")
 
