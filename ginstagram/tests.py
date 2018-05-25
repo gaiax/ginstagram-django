@@ -15,3 +15,11 @@ class ユーザー詳細表示機能(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, user.username)
+
+class ユーザー作成機能(TestCase):
+
+    def test_IDとパスワードが入力できるformを表示する(self):
+        response = self.client.get(
+            reverse('ginstagram:registration')
+        )
+        self.assertEqual(response.status_code, 200) 
