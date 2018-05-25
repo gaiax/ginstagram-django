@@ -41,3 +41,9 @@ class ユーザー作成機能(TestCase):
             reverse('ginstagram:registration')
         )
         self.assertContains(response, '<input type="password" name="password"')
+
+    def test_ユーザー登録でsubmitボタンを表示する(self):
+        response = self.client.get(
+            reverse('ginstagram:registration')
+        )
+        self.assertContains(response, '<button type="submit">登録</button>')
