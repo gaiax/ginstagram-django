@@ -124,7 +124,7 @@ USE_TZ = True
 
 #開発側が用意しておいた静的なファイルを管理
 STATIC_URL = '/static/'
-AUTH_USER_MODEL='ginstagram.Users'
+AUTH_USER_MODEL='ginstagram.User'
 
 #ユーザー側が投稿したデータを管理
 MEDIA_ROOT = os.path.join(os.path.expanduser('~'), 'media')

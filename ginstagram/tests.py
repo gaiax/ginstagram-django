@@ -1,12 +1,12 @@
 from django.urls import reverse
 from django.test import TestCase
-from .models import Users
+from .models import User
 
 
 class ユーザー詳細表示機能(TestCase):
 
     def test_ユーザー詳細ページのレスポンスにusernameが含まれている(self):
-        user = Users.objects.create(
+        user = User.objects.create(
             username='TEST_USER_NAME',
             icon='image/image.jpg',
         )
@@ -52,7 +52,7 @@ class ユーザーフォームからPOSTしたらユーザー作成(TestCase):
         )
 
     def test_POSTで送信したIDとパスワードでDBにレコードを作成する(self):
-        user = Users.objects.last()
+        user = User.objects.last()
         self.assertEqual(user.username, self.username)
         self.assertEqual(user.password, self.password)
 

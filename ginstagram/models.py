@@ -4,6 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import PermissionsMixin
 
 
-class Users(AbstractUser):
+class User(AbstractUser):
     """ 既存のユーザーモデルにアイコン情報を追加"""
     icon = models.ImageField(upload_to="image/", blank=True, null=True)
