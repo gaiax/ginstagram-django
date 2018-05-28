@@ -42,7 +42,7 @@ class ユーザーフォームからPOSTしたらユーザー作成(TestCase):
 
     def setUp(self):
         self.username = 'TEST_USER_NAME'
-        self.password = 'TEST_PASSWORD'
+        self.password = 'TEST_PASSWORD_1'
         self.response = self.client.post(
             reverse('ginstagram:registration'), 
             {
@@ -70,6 +70,26 @@ class ユーザー登録validation(TestCase):
             {
                 'username': 'TEST_USER_NAME_V',
                 'password': 'TEST_P',
+            }
+        )
+        self.assertEqual(response.status_code, 400)
+
+    def test_passwordは少なくとも1つ以上の数字を含まなければ登録できない(self):
+        response = self.client.post(
+            reverse('ginstagram:registration'), 
+            {
+                'username': 'TEST_USER_NAME_V',
+                'password': 'testpassword',
+            }
+        )
+        self.assertEqual(response.status_code, 400)
+
+    def test_passwordは少なくとも1つ以上のアルファベットを含まなければ登録できない(self):
+        response = self.client.post(
+            reverse('ginstagram:registration'), 
+            {
+                'username': 'TEST_USER_NAME_V',
+                'password': '123456789',
             }
         )
         self.assertEqual(response.status_code, 400)
