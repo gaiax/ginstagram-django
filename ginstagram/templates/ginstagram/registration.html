@@ -5,7 +5,8 @@
 <div class=" panel panel-primary" >
     <div class="panel-heading">登録フォーム</div>
     <div class="panel-body">
-    <form>
+    <form action="{% url 'ginstagram:registration' %}" method="post">
+        {% csrf_token %}
         <div class="form-group">
             <label for="username">ユーザーネーム</label>
             <input type="text" name="username" id="username"/>
