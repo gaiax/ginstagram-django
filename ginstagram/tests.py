@@ -68,5 +68,8 @@ class ユーザー作成機能(TestCase):
                 'password': 'TEST_PASSWORD',
             }
         )
-        self.assertRedirects(response, '/TEST_USER_NAME/')
+        self.assertRedirects(
+            response,
+            reverse('ginstagram:profile', kwargs={'username': 'TEST_USER_NAME'}),
+        )
     
