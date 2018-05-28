@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.http.response import HttpResponse
@@ -18,8 +18,8 @@ def registration(request):
     if request.method == 'GET':
         return render(request, 'ginstagram/registration.html')
     elif request.method == 'POST':
-        Users.objects.create(
+        user = Users.objects.create(
             username=request.POST.get('username'),
             password=request.POST.get('password'),
         )
-        return HttpResponse('POST途中')
+        return redirect('ginstagram:profile', user_name=user.username)

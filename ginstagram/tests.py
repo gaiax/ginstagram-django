@@ -48,16 +48,6 @@ class ユーザー作成機能(TestCase):
         )
         self.assertContains(response, '<button type="submit"')
 
-    def test_ユーザー名とパスワードをPOSTで送信するとステータスコード200を返す(self):
-        response = self.client.post(
-            reverse('ginstagram:registration'), 
-            {
-                'username': 'TEST_USER_NAME',
-                'password': 'TEST_PASSWORD',
-            }
-        )
-        self.assertEqual(response.status_code, 200)
-
     def test_POSTで送信したIDとパスワードでDBにレコードを作成する(self):
         response = self.client.post(
             reverse('ginstagram:registration'), 
@@ -70,3 +60,13 @@ class ユーザー作成機能(TestCase):
         self.assertEqual(user.username, 'TEST_USER_NAME')
         self.assertEqual(user.password, 'TEST_PASSWORD')
 
+    def test_ユーザ作成成功後は作成したユーザ詳細画面にRedirectする(self):
+        response = self.client.post(
+            reverse('ginstagram:registration'), 
+            {
+                'username': 'TEST_USER_NAME',
+                'password': 'TEST_PASSWORD',
+            }
+        )
+        self.assertRedirects(response, '/TEST_USER_NAME/')
+    
