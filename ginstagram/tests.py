@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.test import TestCase
 from .models import User
-
+from .forms import UserForm
 
 class ユーザー詳細表示機能(TestCase):
 
@@ -76,7 +76,7 @@ class ユーザー登録validation(TestCase):
                 'password': password,
             }
         )
- 
+
     def test_passwordは8文字以上の文字列でなければ登録できない(self):
         response = self.post_registration_request(
             password='TEST_P0',
@@ -102,3 +102,30 @@ class ユーザー登録validation(TestCase):
         )
         response = self.post_registration_request(username='TEST_ALREADY_EXIST_USER_NAME')
         self.assertEqual(response.status_code, 400)
+
+    def test_validationに失敗したときは入力情報を保持したフォームを表示する(self):
+        response = self.post_registration_request(password='FAILD_PASSWORD')
+        self.assertContains(response, 'TEST_USER_NAME')
+
+
+class UserFormをテストする(TestCase):
+
+    def test_UserFormのpasswordは8文字以上の文字列でなければバリデーションエラーを返す(self):
+        form = UserForm({'username':'TEST_USERNAME', 'password':'TEST18'})
+        self.assertFalse(form.is_valid())
+
+    def test_UserFormのpasswordは少なくとも1つ以上の数字を含まなければバリデーションエラーを返す(self):
+        form = UserForm({'username':'TEST_USERNAME', 'password':'TEST_PASS'})
+        self.assertFalse(form.is_valid())
+
+    def test_UserFormのpasswordは少なくとも1つ以上のアルファベットを含まなければバリデーションエラーを返す(self):
+        form = UserForm({'username':'TEST_USERNAME', 'password':'123456789'})
+        self.assertFalse(form.is_valid())
+
+    def test_UserFormでusernameが重複した場合はバリデーションエラーを返す(self):
+        User.objects.create(
+            username='TEST_ALREADY_EXIST_USER_NAME',
+            password='TEST_PASSWORD2018',
+        )
+        form = UserForm({'username':'TEST_ALREADY_EXIST_USER_NAME', 'password':'TEST_PASSWORD2018'})
+        self.assertFalse(form.is_valid())

@@ -21,7 +21,8 @@ def registration(request):
     elif request.method == 'POST':
         form = UserForm(request.POST)
         if not form.is_valid():
-            return HttpResponse('Validation Error', status=400)
+            #return HttpResponse('Validation Error', status=400)
+            return render(request, 'ginstagram/registration.html', {'form': form})
         user = User.objects.create(
             username=request.POST.get('username'),
             password=request.POST.get('password'),
