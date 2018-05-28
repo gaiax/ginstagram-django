@@ -17,4 +17,5 @@ python_version = "3.6"
 [scripts]
 start = "python manage.py runserver 0:8000"
 test = "python manage.py test ginstagram"
-flake8 = "flake8 ."
+lint = "flake8 ."
+
