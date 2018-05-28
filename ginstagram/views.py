@@ -15,4 +15,7 @@ def profile(request, user_name):
     })
 
 def registration(request):
-    return render(request, 'ginstagram/registration.html')
+    if request.method == 'GET':
+        return render(request, 'ginstagram/registration.html')
+    elif request.method == 'POST':
+        return HttpResponse('POST途中')
