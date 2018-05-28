@@ -23,5 +23,5 @@ urlpatterns = [
     #アプリごとのURL管理
     path('', include('ginstagram.urls')),
     #画像データの管理
-    path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    path('media/<path:path>', serve, {'document_root': settings.MEDIA_ROOT}),
 ]
