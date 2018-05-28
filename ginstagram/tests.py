@@ -64,32 +64,41 @@ class ユーザーフォームからPOSTしたらユーザー作成(TestCase):
 
 class ユーザー登録validation(TestCase):
 
-    def test_passwordは8文字以上の文字列でなければ登録できない(self):
-        response = self.client.post(
+    def post_registration_request(
+        self,
+        username='TEST_USER_NAME',
+        password='TEST_PASSWORD2018'
+    ):
+        return self.client.post(
             reverse('ginstagram:registration'), 
             {
-                'username': 'TEST_USER_NAME_V',
-                'password': 'TEST_P',
+                'username': username, 
+                'password': password,
             }
+        )
+ 
+    def test_passwordは8文字以上の文字列でなければ登録できない(self):
+        response = self.post_registration_request(
+            password='TEST_P0',
         )
         self.assertEqual(response.status_code, 400)
 
     def test_passwordは少なくとも1つ以上の数字を含まなければ登録できない(self):
-        response = self.client.post(
-            reverse('ginstagram:registration'), 
-            {
-                'username': 'TEST_USER_NAME_V',
-                'password': 'testpassword',
-            }
+        response = self.post_registration_request(
+            password='testpassword',
         )
         self.assertEqual(response.status_code, 400)
 
     def test_passwordは少なくとも1つ以上のアルファベットを含まなければ登録できない(self):
-        response = self.client.post(
-            reverse('ginstagram:registration'), 
-            {
-                'username': 'TEST_USER_NAME_V',
-                'password': '123456789',
-            }
+        response = self.post_registration_request(
+            password='123456789',
         )
+        self.assertEqual(response.status_code, 400)
+
+    def test_usernameが重複した場合は登録できない(self):
+        User.objects.create(
+            username='TEST_ALREADY_EXIST_USER_NAME',
+            password='TEST_PASSWORD2018',
+        )
+        response = self.post_registration_request(username='TEST_ALREADY_EXIST_USER_NAME')
         self.assertEqual(response.status_code, 400)
