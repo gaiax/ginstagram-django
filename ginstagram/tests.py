@@ -61,3 +61,15 @@ class ユーザーフォームからPOSTしたらユーザー作成(TestCase):
             self.response,
             reverse('ginstagram:profile', kwargs={'username': self.username}),
         )
+
+class ユーザー登録validation(TestCase):
+
+    def test_passwordは8文字以上の文字列でなければ登録できない(self):
+        response = self.client.post(
+            reverse('ginstagram:registration'), 
+            {
+                'username': 'TEST_USER_NAME_V',
+                'password': 'TEST_P',
+            }
+        )
+        self.assertEqual(response.status_code, 400)

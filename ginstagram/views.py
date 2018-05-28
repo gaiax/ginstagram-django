@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.http.response import HttpResponse
 from .models import User
+from .forms import UserForm
 
 def main(request):
     return HttpResponse("Hello!")
@@ -18,6 +19,9 @@ def registration(request):
     if request.method == 'GET':
         return render(request, 'ginstagram/registration.html')
     elif request.method == 'POST':
+        form = UserForm(request.POST)
+        if not form.is_valid():
+            return HttpResponse('Validation Error', status=400)
         user = User.objects.create(
             username=request.POST.get('username'),
             password=request.POST.get('password'),
