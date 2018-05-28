@@ -58,4 +58,13 @@ class ユーザー作成機能(TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-
+    def test_DBに入力したIDとパスワードのレコードを作成する(self):
+        response = self.client.post(
+            reverse('ginstagram:registration'), 
+            {
+                'username': 'TEST_USER_NAME',
+                'password': 'TEST_PASSWORD',
+            }
+        )
+        user = Users.objects.last()
+        self.assertEqual(user.username, 'TEST_USER_NAME')

@@ -18,4 +18,5 @@ def registration(request):
     if request.method == 'GET':
         return render(request, 'ginstagram/registration.html')
     elif request.method == 'POST':
+        Users.objects.create(username='TEST_USER_NAME')
         return HttpResponse('POST途中')
