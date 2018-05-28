@@ -1,0 +1,12 @@
+.userinfo-follow{
+}
+
+.photo-panel{
+
+}
+
+.ginstagram-icon{
+  width: 150px;
+  height: 150px;
+  object-fit: cover; /* この一行を追加するだけ！ */
+}
