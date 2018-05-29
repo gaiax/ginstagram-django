@@ -7,6 +7,8 @@ name = "pypi"
 django = "==2.0"
 pymysql = "*"
 pillow = "*"
+nose = "*"
+django-nose = "*"
 
 [dev-packages]
 "flake8" = "*"
@@ -16,6 +18,5 @@ python_version = "3.6"
 
 [scripts]
 start = "python manage.py runserver 0:8000"
-test = "python manage.py test ginstagram"
+test = "python manage.py test ginstagram.tests"
 lint = "flake8 ."
-
