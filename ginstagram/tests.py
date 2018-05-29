@@ -79,21 +79,21 @@ class ユーザー登録validation(TestCase):
 
     def test_passwordは8文字以上の文字列でなければ登録できない(self):
         response = self.post_registration_request(
-            password='TEST_P0',
+            password='TEST_18',
         )
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 200)
 
     def test_passwordは少なくとも1つ以上の数字を含まなければ登録できない(self):
         response = self.post_registration_request(
-            password='testpassword',
+            password='TESTPASS',
         )
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 200)
 
     def test_passwordは少なくとも1つ以上のアルファベットを含まなければ登録できない(self):
         response = self.post_registration_request(
-            password='123456789',
+            password='12345678',
         )
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 200)
 
     def test_usernameが重複した場合は登録できない(self):
         User.objects.create(
@@ -101,8 +101,8 @@ class ユーザー登録validation(TestCase):
             password='TEST_PASSWORD2018',
         )
         response = self.post_registration_request(username='TEST_ALREADY_EXIST_USER_NAME')
-        self.assertEqual(response.status_code, 400)
-
+        self.assertEqual(response.status_code, 200)
+ 
     def test_validationに失敗したときは入力情報を保持したフォームを表示する(self):
         response = self.post_registration_request(password='FAILD_PASSWORD')
         self.assertContains(response, 'TEST_USER_NAME')
@@ -111,15 +111,15 @@ class ユーザー登録validation(TestCase):
 class UserFormをテストする(TestCase):
 
     def test_UserFormのpasswordは8文字以上の文字列でなければバリデーションエラーを返す(self):
-        form = UserForm({'username':'TEST_USERNAME', 'password':'TEST18'})
+        form = UserForm({'username':'TEST_USERNAME', 'password':'TEST_18'})
         self.assertFalse(form.is_valid())
 
     def test_UserFormのpasswordは少なくとも1つ以上の数字を含まなければバリデーションエラーを返す(self):
-        form = UserForm({'username':'TEST_USERNAME', 'password':'TEST_PASS'})
+        form = UserForm({'username':'TEST_USERNAME', 'password':'TESTPASS'})
         self.assertFalse(form.is_valid())
 
     def test_UserFormのpasswordは少なくとも1つ以上のアルファベットを含まなければバリデーションエラーを返す(self):
-        form = UserForm({'username':'TEST_USERNAME', 'password':'123456789'})
+        form = UserForm({'username':'TEST_USERNAME', 'password':'12345678'})
         self.assertFalse(form.is_valid())
 
     def test_UserFormでusernameが重複した場合はバリデーションエラーを返す(self):
