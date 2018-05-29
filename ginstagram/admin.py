@@ -2,9 +2,9 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
-from .models import Users
+from .models import User
 
-class UsersAdminForm(admin.ModelAdmin):
+class UserAdminForm(admin.ModelAdmin):
     """admin管理ページフォーム情報"""
     fieldsets = [
         (None,{'fields':['icon','username',]}),
@@ -21,4 +21,4 @@ class UsersAdminForm(admin.ModelAdmin):
             "date_joined",
             ]})
     ]
-admin.site.register(Users,  UsersAdminForm)
+admin.site.register(User,  UserAdminForm)

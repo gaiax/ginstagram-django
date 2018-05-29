@@ -3,12 +3,8 @@
           entity "users"  {
         + user_id   [PK]
         --
-        email
         user_name
         password
-        icon
-        create_date
-        last_login
     }
 
 
