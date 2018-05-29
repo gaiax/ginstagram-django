@@ -6,7 +6,9 @@
   <!-- アカウント情報 -->
   <div class="row">
     <div class="col-md-2 col-md-offset-1">
-
+        <button onclick="javascript:location.href = {% url 'ginstagram:profile' user.username %};">
+            プロフィール画像編集
+        </button>
     </div>
     <div class="col-md-9">
       <div class="col-md-12">
