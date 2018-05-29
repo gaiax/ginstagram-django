@@ -2,15 +2,16 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.http.response import HttpResponse
+from django.views import generic
 from .models import User
 from .forms import UserForm
 
-def profile(request, username):
-    """ ユーザー詳細画面がユーザー名前ごとに生成"""
-    userInfo = get_object_or_404(User, username=username)
-    return render(request,'ginstagram/profile.html',{
-        'userInfo': userInfo
-    })
+
+class Profile(generic.DetailView):
+    model = User
+    template_name = 'ginstagram/profile.html'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
 
 def registration(request):
     if request.method == 'GET':
