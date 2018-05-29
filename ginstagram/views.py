@@ -1,7 +1,7 @@
 from django.views import generic
 from django.urls import reverse
 from .models import User
-from .forms import UserForm
+from .forms import UserForm, UserIconForm
 
 
 class Profile(generic.DetailView):
@@ -26,3 +26,9 @@ class Registration(generic.edit.FormView):
             'ginstagram:profile',
             kwargs={'username': form.data.get('username')}
         )
+
+
+class ProfileIcon(generic.edit.FormView):
+    model = User
+    template_name = 'ginstagram/profile_icon.html'
+    form_class = UserIconForm
