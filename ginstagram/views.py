@@ -20,8 +20,5 @@ def registration(request):
         if not form.is_valid():
             return render(request, 'ginstagram/registration.html', {'form': form})
         else:
-            user = User.objects.create(
-                username=request.POST.get('username'),
-                password=request.POST.get('password'),
-            )
+            user = form.save()
             return redirect('ginstagram:profile', username=user.username)
