@@ -5,9 +5,6 @@ from django.http.response import HttpResponse
 from .models import User
 from .forms import UserForm
 
-def main(request):
-    return HttpResponse("Hello!")
-
 def profile(request, username):
     """ ユーザー詳細画面がユーザー名前ごとに生成"""
     userInfo = get_object_or_404(User, username=username)
