@@ -82,6 +82,7 @@ class ユーザー登録validation(TestCase):
             password='TEST_18',
         )
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'この値が少なくとも 8 文字以上であることを確認してください')
 
     def test_passwordは少なくとも1つ以上の数字を含まなければ登録できない(self):
         response = self.post_registration_request(
