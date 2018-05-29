@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ginstagram',
         'USER': 'root',
-        'PASSWORD': 'gaiax18training', 
+        'PASSWORD': 'gaiax18training',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -122,10 +122,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-#開発側が用意しておいた静的なファイルを管理
+# 開発側が用意しておいた静的なファイルを管理
 STATIC_URL = '/static/'
-AUTH_USER_MODEL='ginstagram.User'
+AUTH_USER_MODEL = 'ginstagram.User'
 
-#ユーザー側が投稿したデータを管理
+# ユーザー側が投稿したデータを管理
 MEDIA_ROOT = os.path.join(os.path.expanduser('~'), 'media')
 MEDIA_URL = '/media/'

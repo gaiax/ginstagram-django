@@ -6,7 +6,6 @@ from .models import User
 
 
 class UserForm(forms.ModelForm):
- 
     password = forms.CharField(validators=[MinLengthValidator(8)])
 
     class Meta:
@@ -19,5 +18,4 @@ class UserForm(forms.ModelForm):
             raise forms.ValidationError('数字が含まれていません')
         if not re.search(r'[a-zA-Z]', password):
             raise forms.ValidationError('アルファベットが含まれていません')
- 
         return password
