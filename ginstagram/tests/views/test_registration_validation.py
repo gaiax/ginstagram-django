@@ -1,7 +1,6 @@
-from django.urls import reverse
 from django.test import TestCase
+from django.urls import reverse
 from ginstagram.models import User
-from ginstagram.forms import UserForm
 
 
 class ユーザー登録validation(TestCase):

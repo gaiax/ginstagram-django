@@ -1,7 +1,6 @@
 from django.urls import reverse
 from django.test import TestCase
 from ginstagram.models import User
-from ginstagram.forms import UserForm
 
 
 class ユーザーフォームからPOSTしたらユーザー作成(TestCase):
