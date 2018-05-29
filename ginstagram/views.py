@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import generic
+from django.urls import reverse
 from .models import User
 from .forms import UserForm
 
@@ -11,17 +12,19 @@ class Profile(generic.DetailView):
     slug_url_kwarg = 'username'
 
 
-def registration(request):
-    if request.method == 'GET':
-        return render(request, 'ginstagram/registration.html')
-    elif request.method == 'POST':
-        form = UserForm(request.POST)
-        if not form.is_valid():
-            return render(
-                request,
-                'ginstagram/registration.html',
-                {'form': form}
-            )
-        else:
-            user = form.save()
-            return redirect('ginstagram:profile', username=user.username)
+class Registration(generic.edit.FormView):
+    template_name = 'ginstagram/registration.html'
+    form_class = UserForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        form = self.get_form()
+        return reverse(
+            'ginstagram:profile',
+            kwargs={'username': form.data.get('username')}
+        )
+
