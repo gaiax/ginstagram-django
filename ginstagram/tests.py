@@ -89,12 +89,14 @@ class ユーザー登録validation(TestCase):
             password='TESTPASS',
         )
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '数字が含まれていません')
 
     def test_passwordは少なくとも1つ以上のアルファベットを含まなければ登録できない(self):
         response = self.post_registration_request(
             password='12345678',
         )
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'アルファベットが含まれていません')
 
     def test_usernameが重複した場合は登録できない(self):
         User.objects.create(
@@ -103,6 +105,7 @@ class ユーザー登録validation(TestCase):
         )
         response = self.post_registration_request(username='TEST_ALREADY_EXIST_USER_NAME')
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '同じユーザー名が既に登録済みです')
  
     def test_validationに失敗したときは入力情報を保持したフォームを表示する(self):
         response = self.post_registration_request(password='FAILD_PASSWORD')
