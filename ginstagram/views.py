@@ -1,5 +1,11 @@
+import os
+
 from django.views import generic
 from django.urls import reverse
+from django.core.files.storage import FileSystemStorage
+from django.shortcuts import get_object_or_404, render
+from django.conf import settings
+
 from .models import User
 from .forms import UserForm, UserIconForm
 
@@ -34,4 +40,24 @@ class ProfileIcon(generic.edit.UpdateView):
     form_class = UserIconForm
     slug_field = 'username'
     slug_url_kwarg = 'username'
+
+
+def upload_file(request, username):
+    if request.method == 'POST':
+        form = UserIconForm(request.POST, request.FILES)
+        if form.is_valid():
+            myfile = request.FILES['icon']
+            fs = FileSystemStorage()
+            filename = fs.save(myfile.name, myfile)
+            path = os.path.join(settings.MEDIA_ROOT, 'image', myfile.name)
+
+            destination = open(path, 'wb')
+            for chunk in myfile.chunks():
+                destination.write(chunk)
+
+        return render(request, 'ginstagram/profile_icon.html', {'username': username, 'form': form})
+    else:
+        form = UserIconForm()
+    return render(request, 'ginstagram/profile_icon.html', {'username': username, 'form': form})
+
 

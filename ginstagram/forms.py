@@ -29,4 +29,4 @@ class UserIconForm(forms.ModelForm):
         fields = ("icon",)
 
     def clean_icon(self):
-        print(self.cleaned_data.get('icon'))
+        pass
