@@ -28,4 +28,18 @@ class ユーザーアイコン編集画面表示機能(TestCase):
         response = self.client.get(
             reverse('ginstagram:icon', args=[user.username])
         )
+        self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'form')
+
+    def test_フォームタグにユーザー名が含まれている(self):
+        user = User.objects.create(
+            username='TEST_USER_NAME',
+            icon='image/image.jpg',
+        )
+        response = self.client.get(
+            reverse('ginstagram:icon', args=[user.username])
+        )
+        self.assertContains(
+            response,
+            'form action="/icon/edit/'+user.username+'/"'
+        )

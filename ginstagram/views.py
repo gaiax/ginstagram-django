@@ -28,7 +28,9 @@ class Registration(generic.edit.FormView):
         )
 
 
-class ProfileIcon(generic.edit.FormView):
+class ProfileIcon(generic.edit.UpdateView):
     model = User
     template_name = 'ginstagram/profile_icon.html'
     form_class = UserIconForm
+    slug_field = 'username'
+    slug_url_kwarg = 'username'

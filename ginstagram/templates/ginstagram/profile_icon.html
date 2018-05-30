@@ -7,7 +7,7 @@
             登録フォーム
         </div>
         <div class="panel-body">
-            <form action="{% url 'ginstagram:registration' %}" method="post">
+            <form action="{% url 'ginstagram:icon' user.username %}" method="post">
                 {% csrf_token %}
                 {{form}}
                 </div>
