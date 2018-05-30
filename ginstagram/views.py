@@ -34,3 +34,4 @@ class ProfileIcon(generic.edit.UpdateView):
     form_class = UserIconForm
     slug_field = 'username'
     slug_url_kwarg = 'username'
+

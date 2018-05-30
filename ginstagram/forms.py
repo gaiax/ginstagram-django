@@ -28,3 +28,5 @@ class UserIconForm(forms.ModelForm):
         model = User
         fields = ("icon",)
 
+    def clean_icon(self):
+        print(self.cleaned_data.get('icon'))
