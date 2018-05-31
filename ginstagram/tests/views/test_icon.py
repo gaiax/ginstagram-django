@@ -46,18 +46,8 @@ class ユーザーアイコン編集画面表示機能(TestCase):
         )
         self.assertContains(
             response,
-            'form action="/icon/edit/'+user.username+'/"'
+            'form action="/'+user.username+'/icon/edit/"'
         )
-
-    def test_Postで画像が送信できるかテスト(self):
-        user = self.create_user()
-        with open(settings.MEDIA_ROOT + '/image/image.jpg', 'rb') as f:
-            response = self.client.post(
-                reverse('ginstagram:icon', args=[user.username]),
-                {'icon': f}
-            )
-        user = User.objects.last()
-        self.assertEqual(response.status_code, 302)
 
     def test_POSTで送信したIDとパスワードでDBにレコードを作成する(self):
         user = self.create_user()

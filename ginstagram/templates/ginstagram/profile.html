@@ -9,9 +9,9 @@
         {% if user.icon %}
         <img src="{{user.icon.url}}" class="ginstagram-icon img-responsive ">
         {% endif %}
-        <button onclick="javascript:location.href = '{% url 'ginstagram:icon' user.username %}';">
+        <a class="btn btn-primary" href="{% url 'ginstagram:icon' user.username %}">
             プロフィール画像編集
-        </button>
+        </a>
     </div>
     <div class="col-md-9">
       <div class="col-md-12">
