@@ -15,7 +15,6 @@ class Profile(generic.DetailView):
 class Registration(generic.edit.CreateView):
     template_name = 'ginstagram/registration.html'
     form_class = UserForm
-    success_url = '/'
 
     def get_success_url(self):
         form = self.get_form()
