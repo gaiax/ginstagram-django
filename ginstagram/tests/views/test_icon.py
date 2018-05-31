@@ -37,18 +37,6 @@ class ユーザーアイコン編集画面表示機能(TestCase):
 
         )
 
-    def test_Postで画像が送信できるかテスト(self):
-        user = User.objects.create(
-            username='TEST_USER_NAME',
-        )
-        with open(settings.MEDIA_ROOT + '/image/image.jpg', 'rb') as f:
-            response = self.client.post(
-                reverse('ginstagram:icon', args=[user.username]),
-                {'icon': f}
-            )
-        user = User.objects.last()
-        self.assertEqual(response.status_code, 302)
-
     def test_POSTで送信したIDとパスワードでDBにレコードを作成する(self):
         user = User.objects.create(
             username='TEST_USER_NAME',
