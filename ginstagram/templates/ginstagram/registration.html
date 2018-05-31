@@ -11,7 +11,11 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="username">ユーザーネーム</label>
+                    {% if form.username.value %}
                     <input type="text" name="username" id="username" value="{{ form.username.value }} " />
+                    {% else  %}
+                    <input type="text" name="username" id="username" />
+                    {% endif %}
                     {% if form.username.errors %}
                     <div class="alert alert-danger">
                         {{ form.username.errors }}

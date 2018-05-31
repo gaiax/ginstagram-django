@@ -46,7 +46,7 @@ class ユーザーアイコン編集画面表示機能(TestCase):
         )
         self.assertContains(
             response,
-            'form action="/'+user.username+'/icon/edit/"'
+            f'form action="/{user.username}/icon/edit/"'
         )
 
     def test_POSTで送信したIDとパスワードでDBにレコードを作成する(self):
