@@ -1,4 +1,5 @@
 import io
+import os
 from PIL import Image
 
 from django.urls import reverse
@@ -12,11 +13,14 @@ from ginstagram.forms import UserIconForm
 
 class ユーザーアイコン編集画面表示機能(TestCase):
 
-    def test_ユーザープロフィール画面にプロフィール編集画面へのリンクを表示すること(self):
-        user = User.objects.create(
-            username='TEST_USER_NAME',
-            icon='image/image.jpg',
+    def create_user(self, username='TEST_USER_NAME', icon=None):
+        return User.objects.create(
+            username=username,
+            icon=icon,
         )
+
+    def test_ユーザープロフィール画面にプロフィール編集画面へのリンクを表示すること(self):
+        user = self.create_user(icon='image/image.jpg')
         response = self.client.get(
             reverse('ginstagram:profile', args=[user.username])
         )
@@ -28,10 +32,7 @@ class ユーザーアイコン編集画面表示機能(TestCase):
         )
 
     def test_画像アップロード用のフォームが表示されること(self):
-        user = User.objects.create(
-            username='TEST_USER_NAME',
-            icon='image/image.jpg',
-        )
+        user = self.create_user(icon='image/image.jpg')
         response = self.client.get(
             reverse('ginstagram:icon', args=[user.username])
         )
@@ -39,23 +40,17 @@ class ユーザーアイコン編集画面表示機能(TestCase):
         self.assertContains(response, 'form')
 
     def test_フォームタグにユーザー名が含まれている(self):
-        user = User.objects.create(
-            username='TEST_USER_NAME',
-            icon='image/image.jpg',
-        )
+        user = self.create_user(icon='image/image.jpg')
         response = self.client.get(
             reverse('ginstagram:icon', args=[user.username])
         )
         self.assertContains(
             response,
             'form action="/icon/edit/'+user.username+'/"'
-
         )
 
     def test_Postで画像が送信できるかテスト(self):
-        user = User.objects.create(
-            username='TEST_USER_NAME',
-        )
+        user = self.create_user()
         with open(settings.MEDIA_ROOT + '/image/image.jpg', 'rb') as f:
             response = self.client.post(
                 reverse('ginstagram:icon', args=[user.username]),
@@ -65,10 +60,7 @@ class ユーザーアイコン編集画面表示機能(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_POSTで送信したIDとパスワードでDBにレコードを作成する(self):
-        user = User.objects.create(
-            username='TEST_USER_NAME',
-        )
-
+        user = self.create_user()
         file_obj = io.BytesIO()
         image = Image.new('RGBA', size=(10, 10), color=(256, 0, 0))
         image.save(file_obj, 'png')
@@ -83,6 +75,8 @@ class ユーザーアイコン編集画面表示機能(TestCase):
             )},
         )
         form.save()
+        path = os.path.join(settings.MEDIA_ROOT, 'image', file_obj.name)
+        os.remove(path)
 
         user = User.objects.last()
         self.assertEqual(user.icon.name, 'image/TEST_USER_ICON.jpg')
