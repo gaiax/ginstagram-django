@@ -1,14 +1,8 @@
-import io
-from PIL import Image
-
 from django.urls import reverse
 from django.test import TestCase
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.conf import settings
 
 from ginstagram.models import User
-from ginstagram.forms import UserIconForm
-
 
 
 class ユーザーアイコン編集画面表示機能(TestCase):
@@ -25,7 +19,7 @@ class ユーザーアイコン編集画面表示機能(TestCase):
         self.assertContains(response, 'プロフィール画像編集')
         self.assertContains(
             response,
-            reverse('ginstagram:icon' , kwargs={'username': user.username})
+            reverse('ginstagram:icon', kwargs={'username': user.username})
         )
 
     def test_画像アップロード用のフォームが表示されること(self):
