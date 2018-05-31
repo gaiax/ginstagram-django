@@ -1,7 +1,8 @@
 from django.views import generic
 from django.urls import reverse
+
 from .models import User
-from .forms import UserForm
+from .forms import UserForm, UserIconForm
 
 
 class Profile(generic.DetailView):
@@ -11,14 +12,9 @@ class Profile(generic.DetailView):
     slug_url_kwarg = 'username'
 
 
-class Registration(generic.edit.FormView):
+class Registration(generic.edit.CreateView):
     template_name = 'ginstagram/registration.html'
     form_class = UserForm
-    success_url = '/'
-
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
 
     def get_success_url(self):
         form = self.get_form()
@@ -26,3 +22,11 @@ class Registration(generic.edit.FormView):
             'ginstagram:profile',
             kwargs={'username': form.data.get('username')}
         )
+
+
+class ProfileIcon(generic.edit.UpdateView):
+    model = User
+    template_name = 'ginstagram/profile_icon.html'
+    form_class = UserIconForm
+    slug_field = 'username'
+    slug_url_kwarg = 'username'

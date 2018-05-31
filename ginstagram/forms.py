@@ -19,3 +19,11 @@ class UserForm(forms.ModelForm):
         if not re.search(r'[a-zA-Z]', password):
             raise forms.ValidationError('アルファベットが含まれていません')
         return password
+
+
+class UserIconForm(forms.ModelForm):
+    icon = forms.ImageField()
+
+    class Meta:
+        model = User
+        fields = ("icon",)
