@@ -1,10 +1,5 @@
-import os
-
 from django.views import generic
 from django.urls import reverse
-from django.core.files.storage import FileSystemStorage
-from django.shortcuts import get_object_or_404, render, redirect
-from django.conf import settings
 
 from .models import User
 from .forms import UserForm, UserIconForm
