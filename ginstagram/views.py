@@ -17,14 +17,10 @@ class Profile(generic.DetailView):
     slug_url_kwarg = 'username'
 
 
-class Registration(generic.edit.FormView):
+class Registration(generic.edit.CreateView):
     template_name = 'ginstagram/registration.html'
     form_class = UserForm
     success_url = '/'
-
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
 
     def get_success_url(self):
         form = self.get_form()
