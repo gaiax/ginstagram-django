@@ -3,7 +3,7 @@ import os
 from django.views import generic
 from django.urls import reverse
 from django.core.files.storage import FileSystemStorage
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.conf import settings
 
 from .models import User
@@ -59,7 +59,7 @@ def upload_file(request, username):
             user.icon = myfile
             user.save()
 
-        return render(request, 'ginstagram/profile_icon.html', {'username': username, 'form': form})
+        return redirect('ginstagram:profile', username=username)
     else:
         form = UserIconForm()
     return render(request, 'ginstagram/profile_icon.html', {'username': username, 'form': form})

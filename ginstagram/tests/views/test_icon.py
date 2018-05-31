@@ -57,7 +57,7 @@ class ユーザーアイコン編集画面表示機能(TestCase):
         user = User.objects.create(
             username='TEST_USER_NAME',
         )
-        with open(settings.MEDIA_ROOT + '/image/iwauchi.png', 'rb') as f:
+        with open(settings.MEDIA_ROOT + '/image/image.jpg', 'rb') as f:
             response = self.client.post(
                 reverse('ginstagram:icon', args=[user.username]),
                 {'icon': f}
