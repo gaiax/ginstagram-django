@@ -40,28 +40,3 @@ class ProfileIcon(generic.edit.UpdateView):
     form_class = UserIconForm
     slug_field = 'username'
     slug_url_kwarg = 'username'
-
-
-def upload_file(request, username):
-    if request.method == 'POST':
-        form = UserIconForm(request.POST, request.FILES)
-        if form.is_valid():
-            myfile = request.FILES['icon']
-            fs = FileSystemStorage()
-            filename = fs.save(myfile.name, myfile)
-            path = os.path.join(settings.MEDIA_ROOT, 'image', myfile.name)
-
-            destination = open(path, 'wb')
-            for chunk in myfile.chunks():
-                destination.write(chunk)
-
-            user = User.objects.get(username=username)
-            user.icon = myfile
-            user.save()
-
-        return redirect('ginstagram:profile', username=username)
-    else:
-        form = UserIconForm()
-    return render(request, 'ginstagram/profile_icon.html', {'username': username, 'form': form})
-
-
