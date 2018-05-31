@@ -3,7 +3,7 @@ import os
 from django.views import generic
 from django.urls import reverse
 from django.core.files.storage import FileSystemStorage
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render
 from django.conf import settings
 
 from .models import User
@@ -43,7 +43,6 @@ class ProfileIcon(generic.edit.UpdateView):
 
 
 def upload_file(request, username):
-    user = User.objects.get(username=username)
     if request.method == 'POST':
         form = UserIconForm(request.POST, request.FILES)
         if form.is_valid():
@@ -56,17 +55,13 @@ def upload_file(request, username):
             for chunk in myfile.chunks():
                 destination.write(chunk)
 
+            user = User.objects.get(username=username)
             user.icon = myfile
             user.save()
 
-        return redirect(
-            reverse(
-                'ginstagram:profile',
-                kwargs={'username': user.username}
-            ),
-            {'form':form}
-        )
+        return render(request, 'ginstagram/profile_icon.html', {'username': username, 'form': form})
     else:
         form = UserIconForm()
-    return render(request, 'ginstagram/profile_icon.html', 
-            {'username': username, 'user':user, 'form': form})
+    return render(request, 'ginstagram/profile_icon.html', {'username': username, 'form': form})
+
+
