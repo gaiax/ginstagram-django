@@ -27,15 +27,3 @@ class UserIconForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("icon",)
-
-    def form_valid(self, form):
-        myfile = self.get_form_kwargs().get('files')['icon']
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
-        path = os.path.join(settings.MEDIA_ROOT, 'image', myfile.name)
-
-        destination = open(path, 'wb')
-        for chunk in myfile.chunks():
-            destination.write(chunk)
-
-
