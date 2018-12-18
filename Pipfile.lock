@@ -22,7 +22,7 @@
                 "sha256:af18618ce3291be5092893d8522fe3919661bf3a1fb60e3858ae74865a4f07c2"
             ],
             "index": "pypi",
-            "version": "==2.0"
+            "version": "==2.0.8"
         },
         "django-nose": {
             "hashes": [
